@@ -25,7 +25,7 @@ void print_solution(int q, int *arr)
     i = 0;
     while (i < q)
     {
-        printf("%d ", arr[i] + 1); // +1 for human-readable (1..N)
+        printf("%d ", arr[i] + 1);
         i++;
     }
     printf("\n");
