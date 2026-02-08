@@ -1,49 +1,45 @@
+
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-int	safe(int col, int row, int *arr)
+int	is_safe(int col, int row, int *arr)
 {
 	int	i;
 
 	i = 0;
 	while (i < col)
 	{
-		if (arr[i] == row)
+		if (row == arr[i])
 			return (0);
-		if (abs(arr[i] - row) == abs(i - col))
+		if (abs(i - col) == abs(arr[i] - row))
 			return (0);
 		i++;
 	}
 	return (1);
 }
 
-void print_solution(int q, int *arr)
+void	queens(int n, int col, int row, int *arr)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (i < q)
-    {
-        printf("%d ", arr[i] + 1);
-        i++;
-    }
-    printf("\n");
-}
-
-void solve(int col, int row, int q, int *arr)
-{
-	if (col == q)
-    {
-        print_solution(q, arr);
-        return;
-    }
-	while (row < q)
+	if (n == col)
 	{
-		if (safe(col, row, arr))
+		i = 0;
+		while (i < col)
+		{
+			printf("%i ", arr[i]);
+			i++;
+		}
+		printf("\n");
+		return ;
+	}
+	while (row < n)
+	{
+		if (is_safe(col, row, arr))
 		{
 			arr[col] = row;
-			solve(col + 1, 0, q, arr);
+			queens(n, col + 1, 0, arr);
 		}
 		row++;
 	}
@@ -51,17 +47,13 @@ void solve(int col, int row, int q, int *arr)
 
 int	main(int ac, char **av)
 {
-	int	q;
-	int	columns;
-	int	rows;
+	int	n;
 
 	if (ac == 2)
 	{
-		q = atoi(av[1]);
-		int	arr[q];
-		rows = 0;
-		columns = 0;
-		solve(columns, rows, q, arr);
+		n = atoi(av[1]);
+		int	arr[n];
+		queens(n, 0, 0, arr);
 	}
-	return (1);
+	return (0);
 }
